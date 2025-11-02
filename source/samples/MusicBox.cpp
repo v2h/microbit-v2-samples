@@ -52,8 +52,8 @@ static const char MUSIC_BOX_MELODY[][NOTE_LEN] = {
  * Play a single note or rest.
  * Shamelessly copied from OOB_v3.cpp
  */
-static void playMelody(const char* note) {
-    const char *note_char = note;
+static void playMelody(const char note[NOTE_LEN]) {
+    const char *note_char = &note[0];
     int distanceFromA = 0;
     int frequency = 0;
     bool rest = false;

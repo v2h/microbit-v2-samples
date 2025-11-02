@@ -15,3 +15,5 @@ Look into OOB_v3.cpp -> playMelody() for an example on how to play music
   -- Skim through codebase for modules relevant to the assignment
   -- Extend `codal-microbit-v2/source/NRF52LedMatrix.cpp` to be able to emit light state
 
+- Mon 03.11: ~30min
+  -- Implement music box

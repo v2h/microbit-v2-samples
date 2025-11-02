@@ -7,7 +7,7 @@ int main()
 {
     uBit.init();
 
-    out_of_box_experience();
+    music_box();
 
     microbit_panic( 999 );
 }

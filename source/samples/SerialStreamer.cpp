@@ -28,6 +28,7 @@ DEALINGS IN THE SOFTWARE.
 void streamer_serial_test() {
     static SplitterChannel *splitterChannel = uBit.audio.splitter->createChannel();
     SerialStreamer *streamer = new SerialStreamer(*splitterChannel, SERIAL_STREAM_MODE_DECIMAL);
+    (void)streamer; // TODO: why not used?
 
     while (true) {
         uBit.sleep(1000);

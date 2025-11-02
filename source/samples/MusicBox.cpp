@@ -101,7 +101,7 @@ static void playMelody(const char note[NOTE_LEN]) {
     }
 
     // Play the tone/rest for the calculated duration
-    if (frequency > 0 && shouldPlay) {
+    if (frequency > 0) {
         uBit.audio.virtualOutputPin.setAnalogPeriodUs(1000000 / frequency);
         uBit.audio.virtualOutputPin.setAnalogValue(127);
     } else {

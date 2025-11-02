@@ -152,6 +152,20 @@ static void musicBoxPlaybackLoop()
     }
 }
 
+static void printShapeOnDisplay(const char * const patern, const int delay)
+{
+    if (patern == NULL) return;
+    // Cap the delay so that shape is shown for a relatively short time only
+    if (delay <= 0 || delay >= 5000) return;
+
+    MicroBitImage image(patern);
+    uBit.display.print(image, 0, 0, 0, delay);
+    uBit.display.clear();
+
+    // Re-enable light sense mode after showing indicator
+    uBit.display.setDisplayMode(DisplayMode::DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE);
+}
+
 /**
  * Event handler for when light is detected (lid opens)
  */
@@ -165,14 +179,7 @@ static void onLight(MicroBitEvent) {
         "255,000,000,000,255\n"
         "255,000,000,000,255\n"
         "000,255,255,255,000\n";
-    
-    // Show a visual indicator that the music box is active
-    MicroBitImage musicNote(indicator_box_open);
-    uBit.display.print(musicNote, 0, 0, 0, 500);
-    uBit.display.clear();
-    
-    // Re-enable light sense mode after showing indicator
-    uBit.display.setDisplayMode(DisplayMode::DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE);
+    printShapeOnDisplay(indicator_box_open, 500);
 }
 
 /**
@@ -191,14 +198,7 @@ static void onDark(MicroBitEvent) {
         "000,000,255,000,255\n"
         "000,255,000,255,255\n"
         "255,000,000,000,255\n";
-    
-    // Show a visual indicator that the music box stopped
-    MicroBitImage closedBox(indicator_box_closed);
-    uBit.display.print(closedBox, 0, 0, 0, 500);
-    uBit.display.clear();
-    
-    // Re-enable light sense mode after showing indicator
-    uBit.display.setDisplayMode(DisplayMode::DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE);
+    printShapeOnDisplay(indicator_box_closed, 500);
 }
 
 /**
@@ -232,19 +232,14 @@ void music_box()
         "255,000,000,000,255\n"
         "255,000,000,000,255\n";
     
-    // Show a startup indicator (briefly, then clear for light sensing)
-    MicroBitImage m_image(m_shape);
-    uBit.display.print(m_image, 0, 0, 0, 1000);
-    uBit.display.clear();
-    
-    // Re-enable light sense mode after printing (in case print changed it)
-    uBit.display.setDisplayMode(DisplayMode::DISPLAY_MODE_BLACK_AND_WHITE_LIGHT_SENSE);
+    // Briefly show a startup indicator
+    printShapeOnDisplay(m_shape, 1000);
     
     // Start the playback loop in a fiber
     create_fiber(musicBoxPlaybackLoop);
     
     // Main loop - just wait for events
-    // The display will continue to sense light and emit events in the background
+    // The display will continue to sense light and emit events in the background (TM, hopefully)
     while (true) {
         uBit.sleep(1000);
     }

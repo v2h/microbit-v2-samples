@@ -17,3 +17,7 @@ Look into OOB_v3.cpp -> playMelody() for an example on how to play music
 
 - Mon 03.11: ~30min
   -- Implement music box
+
+- Mon 03.11: ~1 hour
+  -- Read audio code
+  -- Draw flow diagram
